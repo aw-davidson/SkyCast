@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "skycast",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Weather forecast app",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -19,7 +19,7 @@
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require @babel/polyfill --require @babel/register"
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Alec Davidson",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.3",
@@ -29,6 +29,7 @@
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "history": "^4.6.3",
+    "moment": "^2.21.0",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
@@ -42,8 +43,11 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-calendar": "0.0.8",
+    "semantic-ui-react": "^0.78.3",
     "sequelize": "^4.3.1",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "victory": "^0.25.6"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
