@@ -38,15 +38,14 @@ class ForeCast extends React.Component {
   renderGraph() {
     const { dailySummary, hourlyData } = this.props.forecast
     return (
-      <div>
+      <div >
         {
           hourlyData &&
-          <div>
-            <h2>{dailySummary}</h2>
+          <div className="chart-summary">
             <VictoryChart
               theme={VictoryTheme.material}
               width={600}
-              height={200}
+              height={300}
             >
               <VictoryAxis
                 tickFormat={(unixTime) => {
@@ -66,6 +65,7 @@ class ForeCast extends React.Component {
                 y="temperature"
               />
             </VictoryChart>
+            <p className="summary-text">{dailySummary}</p>
           </div>
         }
       </div>

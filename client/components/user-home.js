@@ -12,8 +12,8 @@ export const UserHome = (props) => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
-      <div className="container">
+      <p className="welcome-text">Welcome, {email}</p>
+      <div className="map-chart-container">
         <GoogleMap initialPosition={{ lat: 48.87, lng: 2 }} />
         <div className="chart-card">
           <DateSelect />

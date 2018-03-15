@@ -9,7 +9,7 @@ const DateSelect = (props) => {
   const { handleChange } = props;
 
   return (
-    <div height={10}>
+    <div className="date-select">
      <Input
         type="date"
         onChange={handleChange}

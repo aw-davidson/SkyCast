@@ -5,20 +5,21 @@ import { changeLocation } from '../store'
 import axios from 'axios'
 
 class GoogleMap extends React.Component {
+
   componentDidMount() {
-    //ceate a new map with initialPosition
-    const { lat, lng } = this.props.initialPosition
+
+    const { onChangeLocation, userId, initialPosition } = this.props
+
+
     let map = new window.google.maps.Map(this.map, {
       zoom: 16,
-      center: { lat, lng }
+      center:  initialPosition
     });
 
     //set a reference to map to be used in other methods
     this.map = map
 
     let infoWindow = new window.google.maps.InfoWindow;
-
-    const { onChangeLocation, userId } = this.props
 
     //Get current position with HTML5 geolocation.
     if (navigator.geolocation) {
@@ -27,11 +28,11 @@ class GoogleMap extends React.Component {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        onChangeLocation(pos)
         infoWindow.setPosition(pos);
         infoWindow.setContent('You are here.');
         infoWindow.open(map);
         map.setCenter(pos);
+        onChangeLocation(pos)
       }, function () {
         this.handleLocationError(true, infoWindow, map.getCenter());
       });
@@ -108,10 +109,6 @@ class GoogleMap extends React.Component {
       'Error: The Geolocation service failed.' :
       'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(this.map);
-  }
-
-  panTo = (newLocation) => {
-    this.map.panTo(newLocation)
   }
 
   render() {

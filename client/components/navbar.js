@@ -1,12 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../store'
+import { Header, Image } from 'semantic-ui-react'
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-    <h1>SkyCast Inc</h1> 
+    <div className="title-block">
+    <Image size="mini" src="/favicon.ico" as="a" href="/home" className="logo" />
+      <Header as="h1" className="title-text">
+        SkyCast
+      <Header.Subheader>
+          changeing the way people read weather forecasts
+      </Header.Subheader>
+      </Header>
+    </div>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -18,12 +27,12 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/myqueries">My Queries</Link>
         </div>
       ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
     </nav>
     <hr />
   </div>
