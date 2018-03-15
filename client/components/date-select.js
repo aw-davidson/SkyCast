@@ -1,18 +1,19 @@
 import React from 'react'
 import { Input } from 'semantic-ui-react'
 import moment from 'moment'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { changeDate } from '../store'
+import axios from 'axios'
 
 
 const DateSelect = (props) => {
-  const { handleChange } = props;
-
+  const { handleChange, location, userId } = props;
+  const locationName = location.name;
   return (
     <div className="date-select">
-     <Input
+      <Input
         type="date"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e, locationName, userId)}
         min="2000-01-01"
         max={moment().add(7, 'days').format('YYYY-MM-DD')}
       />
@@ -20,13 +21,27 @@ const DateSelect = (props) => {
   )
 }
 
+const mapState = (state) => {
+  return {
+    location: state.location,
+    userId: state.user.id,
+  }
+}
+
 const mapDispatch = (dispatch) => {
   return {
-    handleChange(event){
-      let timeStamp = ( moment(event.target.value).unix() )
-      dispatch(changeDate(timeStamp))
+    handleChange(event, location, userId) {
+      let date = (moment(event.target.value).unix())
+      dispatch(changeDate(date))
+
+      console.log('id', userId)
+      location = location || 'Your current location'
+      const query = {date, location, userId}
+      axios.post(`api/queries`, query)
+        .catch(console.error)
+
     }
   }
 }
 
-export default connect(null, mapDispatch)(DateSelect)
+export default connect(mapState, mapDispatch)(DateSelect)

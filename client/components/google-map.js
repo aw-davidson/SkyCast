@@ -8,7 +8,7 @@ class GoogleMap extends React.Component {
 
   componentDidMount() {
 
-    const { onChangeLocation, userId, initialPosition } = this.props
+    const { onChangeQuery, userId, initialPosition, date } = this.props
 
 
     let map = new window.google.maps.Map(this.map, {
@@ -26,13 +26,15 @@ class GoogleMap extends React.Component {
       navigator.geolocation.getCurrentPosition(function (position) {
         let pos = {
           lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lng: position.coords.longitude,
         };
         infoWindow.setPosition(pos);
         infoWindow.setContent('You are here.');
         infoWindow.open(map);
         map.setCenter(pos);
-        onChangeLocation(pos)
+
+        const query = {location: 'Your current location', userId, date}
+        onChangeQuery(pos, query)
       }, function () {
         this.handleLocationError(true, infoWindow, map.getCenter());
       });
@@ -54,9 +56,9 @@ class GoogleMap extends React.Component {
     searchBox.addListener('places_changed', function () {
       let places = searchBox.getPlaces();
 
-      let newLocationCoords = { lat: places[0].geometry.location.lat(), lng: places[0].geometry.location.lng() }
-      let query = {location: places[0].name, userId}
-      onChangeLocation(newLocationCoords, query)
+      let newLocation = { lat: places[0].geometry.location.lat(), lng: places[0].geometry.location.lng(), name: places[0].name }
+      let query = {location: places[0].name, userId, date}
+      onChangeQuery(newLocation, query)
 
       if (places.length === 0) {
         return;
@@ -126,13 +128,14 @@ class GoogleMap extends React.Component {
  */
 const mapState = (state) => {
   return {
-    userId: state.user.id
+    userId: state.user.id,
+    date: state.date
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    onChangeLocation(position, query) {
+    onChangeQuery(position, query) {
       dispatch(changeLocation(position))
       if (query) {
         axios.post(`api/queries`, query)

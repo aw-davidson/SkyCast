@@ -1,7 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loadQueries } from '../store'
+import moment from 'moment'
+import { Table } from 'semantic-ui-react'
 
 /**
  * COMPONENT
@@ -15,13 +16,28 @@ class Queries extends React.Component {
   render() {
     const { queries } = this.props
     return (
-      <div>
-        {
-          queries && queries.map((query) => {
-            return <h2 key={query.id}>{query.location}</h2>
-          })
-        }
-      </div>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Search Date</Table.HeaderCell>
+            <Table.HeaderCell>Searched at</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {
+            queries && queries.map((query) => {
+              return (
+                <Table.Row key={query.id}>
+                  <Table.Cell>{query.location}</Table.Cell>
+                  <Table.Cell>{moment.unix(query.date).format('YYYY-MM-DD')}</Table.Cell>
+                  <Table.Cell>{moment(query.createdAt).format('YYYY-MM-DD, h:mm:ss a')}</Table.Cell>
+                </Table.Row>
+              )
+            })
+          }
+        </Table.Body>
+      </Table>
     )
   }
 }

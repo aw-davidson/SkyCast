@@ -12,7 +12,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       <Header as="h1" className="title-text">
         SkyCast
       <Header.Subheader>
-          changeing the way people read weather forecasts
+          changing the way people read weather forecasts
       </Header.Subheader>
       </Header>
     </div>

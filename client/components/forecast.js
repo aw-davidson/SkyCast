@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis } from 'victory'
 import { loadForecast } from '../store'
+import { Loader, Dimmer, Segment } from 'semantic-ui-react'
 
 /**
  * COMPONENT
@@ -26,19 +27,24 @@ class ForeCast extends React.Component {
     var ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
     var strTime = hours + ' ' + ampm;
     return strTime;
   }
 
   renderLoading() {
-    return <div>Loading...</div>;
+    return (
+      <Segment basic className="loading-box">
+        <Dimmer active inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      </Segment>)
   }
 
   renderGraph() {
     const { dailySummary, hourlyData } = this.props.forecast
     return (
-      <div >
+      <Segment className="chart-segment" basic>
         {
           hourlyData &&
           <div className="chart-summary">
@@ -68,7 +74,7 @@ class ForeCast extends React.Component {
             <p className="summary-text">{dailySummary}</p>
           </div>
         }
-      </div>
+      </Segment>
     )
   }
 
@@ -80,7 +86,6 @@ class ForeCast extends React.Component {
 /**
  * CONTAINER
  */
-
 const mapState = (state) => {
   return {
     location: state.location,

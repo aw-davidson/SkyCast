@@ -68,4 +68,14 @@ form div {
 .chart-card {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  width: 45em;
+}
+
+.loading-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45em;
+  height: 20em;
 }
