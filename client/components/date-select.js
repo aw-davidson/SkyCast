@@ -5,15 +5,18 @@ import { connect } from 'react-redux'
 import { changeDate } from '../store'
 import axios from 'axios'
 
-
+/**
+* COMPONENT
+*/
 const DateSelect = (props) => {
   const { handleChange, location, userId } = props;
   const locationName = location.name;
+
   return (
     <div className="date-select">
       <Input
         type="date"
-        onChange={(e) => handleChange(e, locationName, userId)}
+        onChange={(event) => handleChange(event, locationName, userId)}
         min="2000-01-01"
         max={moment().add(7, 'days').format('YYYY-MM-DD')}
       />
@@ -21,6 +24,9 @@ const DateSelect = (props) => {
   )
 }
 
+/**
+ * CONTAINER
+ */
 const mapState = (state) => {
   return {
     location: state.location,
@@ -34,7 +40,6 @@ const mapDispatch = (dispatch) => {
       let date = (moment(event.target.value).unix())
       dispatch(changeDate(date))
 
-      console.log('id', userId)
       location = location || 'Your current location'
       const query = {date, location, userId}
       axios.post(`api/queries`, query)

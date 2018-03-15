@@ -79,3 +79,7 @@ form div {
   width: 45em;
   height: 20em;
 }
+
+.auth-field {
+  padding: 1em;
+}

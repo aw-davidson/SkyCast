@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { GoogleMap, Search, ForeCast } from './'
+import { GoogleMap, ForeCast } from './'
 import DateSelect from './date-select';
 
 /**

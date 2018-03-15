@@ -10,10 +10,9 @@ class GoogleMap extends React.Component {
 
     const { onChangeQuery, userId, initialPosition, date } = this.props
 
-
     let map = new window.google.maps.Map(this.map, {
       zoom: 16,
-      center:  initialPosition
+      center: initialPosition
     });
 
     //set a reference to map to be used in other methods
@@ -33,7 +32,7 @@ class GoogleMap extends React.Component {
         infoWindow.open(map);
         map.setCenter(pos);
 
-        const query = {location: 'Your current location', userId, date}
+        const query = { location: 'Your current location', userId, date }
         onChangeQuery(pos, query)
       }, function () {
         this.handleLocationError(true, infoWindow, map.getCenter());
@@ -57,7 +56,7 @@ class GoogleMap extends React.Component {
       let places = searchBox.getPlaces();
 
       let newLocation = { lat: places[0].geometry.location.lat(), lng: places[0].geometry.location.lng(), name: places[0].name }
-      let query = {location: places[0].name, userId, date}
+      let query = { location: places[0].name, userId, date }
       onChangeQuery(newLocation, query)
 
       if (places.length === 0) {
@@ -123,9 +122,6 @@ class GoogleMap extends React.Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     userId: state.user.id,
@@ -145,13 +141,11 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-
 /**
  * PROP TYPES
  */
 GoogleMap.propTypes = {
   initialPosition: PropTypes.object.isRequired
 }
-
 
 export default connect(mapState, mapDispatch)(GoogleMap)

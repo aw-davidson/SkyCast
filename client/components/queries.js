@@ -7,14 +7,8 @@ import { Table } from 'semantic-ui-react'
 /**
  * COMPONENT
  */
-class Queries extends React.Component {
-
-  componentDidMount() {
-    this.props.loadQueriesAsync(this.props.userId)
-  }
-
-  render() {
-    const { queries } = this.props
+const Queries = (props) => {
+  const { queries } = props
     return (
       <Table celled>
         <Table.Header>
@@ -39,12 +33,22 @@ class Queries extends React.Component {
         </Table.Body>
       </Table>
     )
-  }
 }
 
 /**
  * CONTAINER
  */
+class QueriesContainer extends React.Component {
+
+  componentDidMount() {
+    this.props.loadQueriesAsync(this.props.userId)
+  }
+
+  render() {
+    return <Queries {...this.props} />
+  }
+}
+
 const mapState = (state) => {
   return {
     queries: state.queries,
@@ -60,4 +64,4 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Queries)
+export default connect(mapState, mapDispatch)(QueriesContainer)

@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom'
 import { logout } from '../store'
 import { Header, Image } from 'semantic-ui-react'
 
+
+/**
+ * COMPONENT
+ */
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <div className="title-block">
